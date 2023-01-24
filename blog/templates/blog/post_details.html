@@ -1,0 +1,74 @@
+{% extends 'blog/base.html' %}
+
+{% block body %}
+<section>
+    <div>
+        <h2>{{post.title}}--{{post.category.name}}</h2>
+    </div>
+    <div>
+      <h5><a href="#">{{post.title}}</a> by <a href="#">{{post.user.username}}</a>({{post.user.gender}}) : {{post.date}}</h5>
+      
+    </div>
+    <div>
+        <h5>{{post.body}}</h5>
+        <div><img src="{{post.pic.url}}" alt=""></div>
+    </div>
+</section>
+<section>
+    <div>
+        {% if request.user.is_authenticated %}
+          <div style="display:inline-grid;">
+            <h5><button>REPLY</button> <button>LIKE</button> {{count}} comments {{count}} likes</h5>
+          </div>
+          {% else %}
+          <div>
+            <h5>{{count}}comments</h5> <h5>{{count}} likes</h5>
+          </div>
+        {% endif %}  
+          
+        {% if request.user.is_authenticated %}
+            <div>
+              <form method="post" action="{% url 'post_details' id=post.id %}">
+              {% csrf_token %}
+                {% for f in form %}
+                  <div>
+                    {{f.label}}
+                    {{f}}
+                    {{f.errors}} 
+                  </div> 
+                {% endfor %}                         
+                <input type="submit" value="Submit comment">
+                </form>
+                <div>
+                  {% for message in messages %}
+                    <p>{{message}}</p>
+                  {% endfor %}      
+                </div>
+            </div>    
+  
+            <div>
+                {% for comment in comments %}
+                    <div> 
+                        <h3>Re: {{post.title}} <span> by </span> <span>{{comment.user.username}}</span> : {{comment.date}}</h3>
+                    </div>
+                    <div> 
+                        <p>{{comment.comment}}</p>
+                    </div> 
+                {% endfor %}  
+            </div>
+        {% else %}
+            <div>
+                {% for comment in comments %}
+                    <div> 
+                        <h3>Re: {{post.title}} <span> by </span> <span>{{comment.user.username}}</span> : {{comment.date}}</h3>
+                    </div>
+                    <div> 
+                        <p>{{comment.comment}}</p>
+                    </div> 
+                {% endfor %}  
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock  %}

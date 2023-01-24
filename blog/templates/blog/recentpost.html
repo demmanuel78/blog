@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+
+{% block body %}
+    <section>
+        <div>
+            <h2>RECENT POSTS</h2>
+            <h4><a href="{% url 'home' %}">HOME</a>/ <a href="{% url 'recentpost' %}">RECENT POSTS</a></h4>
+         </div>
+          {% for post in posts %}
+         <div>
+             <h3><a href="{% url 'category' id=post.category.id%}">{{post.category.name}}</a>/ <a href="{% url 'post_details' id=post.id%}">{{post.title}}</a> by {{post.user.username}}({{post.user.gender}}): {{post.date}}</h3>
+         
+         </div>
+         {% endfor %}
+    </section>
+{% endblock %}

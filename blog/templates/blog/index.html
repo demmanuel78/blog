@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+
+{% block body %}
+  <section class="container">   
+    <div class="h4 text-center ps-2 border border-2 mt-2 rounded-top rounded-2">
+        BLOG FORUMS
+    </div>
+
+    <div class="container h4 ps-2 ms-n border border-1 border-top-0">
+            {% for category in categories %}
+            <a class="fs-3 text-decoration-none" href="{% url 'category' id=category.id %}">{{category.name}},</a>
+            {% endfor %}
+    </div>
+  </section>
+  
+  <section  class="container border border-2 mt-2 rounded-2">
+    
+   <div>
+        {% for post in posts %}
+          <h4 class="text-center"><a class="text-decoration-none" href="{% url 'post_details' id=post.id %}">>>{{post.title}}>></a></h4>
+        {% endfor %}  
+   </div>
+  </section>
+{% endblock  %}

@@ -1,0 +1,38 @@
+ <div class="head border border-primary border-2 rounded-4 text-center bg-success mt-2">
+    <div>
+        <h3><a class="text-decoration-none text-white " href="{% url 'home' %}"> DAMMY'S BLOG</a></h3>
+    </div>
+    <div class="container">
+        {% if not request.user.is_authenticated %}
+                <nav class="navbar navbar-expand-lg navbar-light navbar-text text-white fs-5" aria-label="breadcrumb">  
+                    <div class="container-fluid nav justify-content-center"> 
+                    <ol class="breadcrumb text-primary">
+                      <li class=""><h4 class="fs-5">Welcome, <span class="text-black fs-5">Guest: </span></h4></li>
+                      <li class="breadcrumb-item"><a class=" fs-5 text-decoration-none text-white" href="{% url 'register' %}">Register Now!</a></li>
+                      <li class="breadcrumb-item"><a class=" fs-5 text-decoration-none text-white" href="{% url 'login' %}">LOGIN</a></li>
+                      <li class="breadcrumb-item"><a class=" fs-5 text-decoration-none text-white" href="{% url 'recentpost' %}">Recent</a></li>
+                   </ol>
+                   </div>
+                </nav>
+        
+            <div class="mt-n5">
+                <h4 class="text-white"><span class="text-black fs-5">Stats:</span> {{count}} Topics</h4>
+                <h4 class="text-white"><span class="text-black fs-5" >Date:</span> {{date}}</h4>                  
+           </div>
+
+        {% else %}
+            <div><h5>Welcome, <span><a href="{% url 'userpost' id=user.id %}">{{user.username}}</a></span>{{user.gender}}: <a href="{% url 'updateprofile' id=user.id%}">EDIT PROFILE</a> <a href="{% url 'recentpost' %}">Recent</a> </h5></div>
+            <div>
+                <h5><span>Stats:</span> {{count}} Topics</h5>
+                <h5><span>Date: {{date}}</span></h5>
+                <h5><a href="{% url 'logout' %}">LOGOUT</a></h5>
+           </div>
+        {% endif %}                 
+    </div>
+    <div class="container">
+       <form action="{% url 'search' %}" method="get">
+          <input type="search" class="form-control-sm border-success w-25" name="searchvalue"> 
+          <input class="btn btn-primary" type="submit" value="Search">         
+       </form>
+    </div>
+</div>

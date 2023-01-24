@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+{% block body %}
+    <section>
+      <div>
+        
+           <h2>{{category.name}}</h2> 
+        
+      </div>
+      <div>
+          <h5><a href="{% url 'createpost' id=categoryid %}">CREATE POST</a></h5>
+      </div>
+      <div>
+      
+          {% for post in posts %}
+             <h5><a href="{% url 'post_details' id=post.id %}">{{post.title}}</a></h5>
+          
+          {% endfor %}
+      </div>
+    
+    </section>
+
+{% endblock  %}

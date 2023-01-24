@@ -1,0 +1,32 @@
+{% extends 'blog/base.html' %}
+
+{% block body %}
+<section>
+    <div>
+      <h2>{{category.name}}</h2>
+    </div>
+     <div>
+         <form enctype="multipart/form-data" action="{% url 'createpost' id=categoryid%}" method="post">
+            {% csrf_token %}
+            {% for f in form %}
+            <div>
+              <label>{{f.label}}</label>
+              {{f}}
+              <div id="error">{{f.errors}}</div>
+            </div> 
+        {% endfor %}
+        <input type="submit" value="create post">
+          {% for message in messages %}
+            <p>{{message}}</p>
+          {% endfor %}
+         </form>
+        
+     </div>
+</section>
+    
+   
+
+
+
+
+{% endblock  %}

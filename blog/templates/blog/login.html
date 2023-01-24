@@ -1,0 +1,18 @@
+{% extends 'blog/base.html'%}
+
+{% block title%} Login {% endblock%}
+
+
+{% block body%}
+    <h1>login Page</h1>
+
+    <form method="POST" action="{% url 'login' %}">
+        {%csrf_token %}
+        {{ form.errors }}
+              
+        <input type="username" name="username">
+        <input type="password" name="password">
+        <input id="btn" type="submit" value="Login">
+    </form>
+
+{% endblock%}
